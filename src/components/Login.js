@@ -15,11 +15,12 @@ class Login extends React.Component {
         this.setState(
             {[e.target.name]: e.target.value}
         )
-        console.log(this.state)
     }
 
     handleSubmit = e => {
+        e.preventDefault()
         this.props.changeView('home')
+        this.props.changeUserNameGreeting(this.state.name)
     }
     // HINT: Use the line below to change the view when the form is submitted
     // this.props.changeView('home')
@@ -27,7 +28,7 @@ class Login extends React.Component {
     render(){
         // TODO: What additional attributes and event handlers are needed on each of the elements below?
         return (
-            <form className="vertical-flex" >
+            <form className="vertical-flex" onSubmit={this.handleSubmit}>
                 <h2>Create an Account</h2>
                 <input name="name" placeholder="Name" value= {this.state.name} onChange={this.handleChange}/>
                 <input name="username" placeholder="Username" value= {this.state.username} onChange={this.handleChange}/>
