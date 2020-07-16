@@ -32,6 +32,11 @@ class HomeView extends React.Component {
      * Define a method that can add a new plant into the plants array.
      */
 
+     handleNewPlant = (newPlant) => {
+        this.setState({plants:[...this.state.plants, newPlant]})
+        console.log(this.state.plants)
+     }
+
     render(){
         const { plants, showCreateForm } = this.state
         // TODO: In order to search, what state, methods and element attributes are needed? 
@@ -40,7 +45,7 @@ class HomeView extends React.Component {
         return (
             <div>
                 <button onClick={this.toggleCreateForm}>{showCreateForm ? "Hide Form" : "Submit Plant"}</button>
-                { showCreateForm && <CreatePlantForm />}
+                { showCreateForm && <CreatePlantForm handleNewPlant={this.handleNewPlant}/>}
                 <hr />
                 <div>
                     <input placeholder="Search for Plants" onChange={this.handleSearchChange}/>
