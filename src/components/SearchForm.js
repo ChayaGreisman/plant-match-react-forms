@@ -1,24 +1,5 @@
 import React from 'react';
 
-
-/**
- * 
- * 
- * DO
- * NOT 
- * PROCEED
- * 
- * 
- * UNTIL AFTER CORE DELIVERABLES
- * 
- * 
- * 
- * 
- * 
- */
-
-
- 
 class SearchForm extends React.Component {
     state = {
         showForm: false

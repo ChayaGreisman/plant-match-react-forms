@@ -25,6 +25,7 @@ class App extends React.Component {
        <Navbar changeView={this.changeView} view={this.state.view} username={this.state.username} />
        {this.state.view === 'login' && <Login changeView={this.changeView} changeUserNameGreeting={this.changeUserNameGreeting}/>}
        {this.state.view === 'home' && <HomeView />}
+       {/* SAME AS WRITING: {this.state.view === 'home' ? <HomeView /> : null} */}
       </div>
     );
   }

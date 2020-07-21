@@ -7,43 +7,42 @@ class CreatePlantForm extends React.Component {
         Common_Name: "",
         Scientific_Name: "",
         img_name: ""
-        // TODO: What needs to be represented in state for a fully controlled form?
+        // Remember: each input field needs to be represented in state for a fully controlled form
     }
 
-    // TODO: What methods need to be created for a fully controlled form?
+    
 
     handleChange = e => {
         this.setState({[e.target.name]: e.target.value})
     }
 
     handleSubmit = e => {
-        e.preventDefault()
-        this.props.handleNewPlant({ Common_Name: this.state.Common_Name,
-                                    Scientific_Name: this.state.Scientific_Name,
-                                    img_name: this.state.img_name
-                                    })
+        e.preventDefault() // SO THAT PAGE DOESN'T RELOAD (which would usually be the default behavior of a submit-- we want to prevent that, don't want page reloading on user)
         fetch(API_BASE, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json'
             },
-            body: JSON.stringify({
-                Common_Name: this.state.Common_Name,
-                Scientific_Name: this.state.Scientific_Name,
-                img_name: this.state.img_name
-            })
+            body: JSON.stringify(this.state)
+            // body: JSON.stringify(
+                //     {
+                //     Common_Name: this.state.Common_Name,
+                //     Scientific_Name: this.state.Scientific_Name,
+                //     img_name: this.state.img_name
+                //     }
+                // )
+               
         })
         .then(resp=>resp.json())
-        .then(data => 
-            this.setState({Common_Name: "", Scientific_Name: "", img_name: ""})
+        .then(newPlantObject => this.props.handleNewPlant(newPlantObject),
+            this.setState({Common_Name: "", Scientific_Name: "", img_name: ""})   
         )
             
     }
 
     render(){
-        // TODO: What additional attributes and event handlers are needed on each of the elements below?
-
+        
         return (
             <form className="vertical-flex" onSubmit={this.handleSubmit}>
                 <h4>Submit a New Plant</h4>
