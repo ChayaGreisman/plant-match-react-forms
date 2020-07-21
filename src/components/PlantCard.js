@@ -16,6 +16,8 @@ class PlantCard extends React.Component {
             <>
                 <img className="card-img" src={img_name.endsWith('.png') ? `/imgs/${img_name}` : img_name} alt={Common_Name} />
                 <div>{Common_Name}</div>
+                <button onClick={()=>this.props.delete(this.props.id)}>🗑</button>
+        
             </>
         )
     }

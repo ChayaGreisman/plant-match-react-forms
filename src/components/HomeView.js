@@ -21,8 +21,23 @@ class HomeView extends React.Component {
     toggleCreateForm = () => this.setState({ showCreateForm: !this.state.showCreateForm })
 
 
+    deletePlant = id => {
+        fetch(`http://localhost:3001/plants/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            }
+        })
+        .then(res=>res.json())
+        .then(()=>{
+            let newPlantsArray = this.state.plants.filter(plant=> plant.id !== id)
+            this.setState({plants: newPlantsArray})
+        })
+
+    }
+
     /**
-     * TODO: ONLY FOR ADVANCED DELIVERABLES
      * Once you post a new plant, you'll need to update the plants on state here.
      * Define a method that can add a new plant into the plants array.
      */
@@ -48,18 +63,19 @@ class HomeView extends React.Component {
         const { plants, showCreateForm } = this.state
         // TODO: In order to search, what state, methods and element attributes are needed? 
         // In order to render the correct plants, what calculations do you need to do and what props do you need to change below?
-        let filteredPlants = this.state.plants.filter(plant=>plant.Common_Name.toLowerCase().includes(this.state.search.toLowerCase()))
+        let filteredPlants = plants.filter(plant=>plant.Common_Name.toLowerCase().includes(this.state.search.toLowerCase()))
         // if 'search' in state is  an empty string "" (user didn't type anything in search field), filteredPlants will be equal to all plants, because "any string".includes("") evaluates to true
         return (
             <div>
-                <button onClick={this.toggleCreateForm}>{showCreateForm ? "Hide Form" : "Submit Plant"}</button>
-                { showCreateForm && <CreatePlantForm handleNewPlant={this.handleNewPlant}/>}
+                <button onClick={this.toggleCreateForm}>{showCreateForm ? "Hide Form" : "Show Create Plant Form"}</button>
+                {/* { showCreateForm && <CreatePlantForm handleNewPlant={this.handleNewPlant}/>} */}
+                { showCreateForm ? <CreatePlantForm handleNewPlant={this.handleNewPlant}/> : null}
                 <hr />
                 <div>
-                    <input placeholder="Search for Plants" onChange={this.handleSearchChange}/>
+                    <input placeholder="Search for Plants" value={this.state.search} onChange={this.handleSearchChange}/>
                 </div>
                 {/* change to filtered plants below */}
-                <MatchContainer plants={filteredPlants}/>
+                <MatchContainer delete = {this.deletePlant} plants={filteredPlants}/>
             </div>
         )
     }

@@ -35,8 +35,8 @@ class CreatePlantForm extends React.Component {
                
         })
         .then(resp=>resp.json())
-        .then(newPlantObject => this.props.handleNewPlant(newPlantObject),
-            this.setState({Common_Name: "", Scientific_Name: "", img_name: ""})   
+        .then(newPlantObject => this.props.handleNewPlant(newPlantObject),       //--> handleNewPlant is a callback function passed in here to the create plant form as a prop from HomeView. it takes in an entire new plant object and then in HomeView this handleNewPlant method resets the value of plants in state to be an array that includes this new plant
+            this.setState({Common_Name: "", Scientific_Name: "", img_name: ""})   //--> this line takes care of resetting the form- because the value (text inside) of each input field is set equal to it's corresponding key in state, it reflects/shows exactly what is saved in state, so here -setting those corresponding keys in state back to empty strings "clears" the form
         )
             
     }
